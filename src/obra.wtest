@@ -1,0 +1,62 @@
+import obras.*
+import obreros.*
+
+
+describe "test obra" {
+	var obra = new Obra()
+	
+	
+	var albanil1 = new Albanil()
+	var albanil2 = new Albanil()
+	var gasista1 = new Gasista()
+	var gasista2 = new Gasista()
+	var plomero1 = new Plomero()
+	
+	fixture {
+						
+		obra.agregarMaterial("ladrillo")
+		obra.agregarMaterial("canio")
+		obra.agregarMaterial("fosforo")
+		obra.agregarMaterial("arandela")
+		
+		obra.ladrillo(1000)
+		obra.canio(400)
+		obra.fosforo(8000)
+		obra.arandela(500)
+		
+		obra.agregarObrero(albanil1)
+		obra.agregarObrero(albanil2)
+		obra.agregarObrero(gasista1)
+		obra.agregarObrero(gasista2)
+		obra.agregarObrero(plomero1)
+		
+		albanil1.noEstaDeLicencia()
+		albanil2.estaDeLicencia()
+		gasista1.noEstaDeLicencia()
+		gasista2.noEstaDeLicencia()
+		plomero1.noEstaDeLicencia()
+		
+		obra.registrarJornadaLaboral()
+	}
+	
+	test "stockLadrillos" {
+		assert.equals(900, obra.ladrillo())
+	}
+	test "stockCanio" {
+		assert.equals(384, obra.canio())
+	}
+	test "stockFosforo" {
+		assert.equals(7960, obra.fosforo())
+	}
+	test "stockArandela" {
+		assert.equals(470, obra.arandela())
+	}
+	
+	test"incluyeObrero" {
+		assert.that(obra.incluyeObrero(albanil1))
+	}
+	test"noIncluyeObrero" {
+		assert.notThat(obra.incluyeObrero(albanil2))
+	}
+	
+}
